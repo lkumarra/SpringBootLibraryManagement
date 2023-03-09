@@ -9,17 +9,18 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "students")
 @Getter
 @Setter
+@ToString()
 public class Students {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	public long Id;
+	public long id;
 	
 	@Column(name = "student_name")
 	private String studentName;

@@ -1,8 +1,10 @@
-package com.hospitalmanagement.hospitalmanagement.services;
+package com.hospitalmanagement.hospitalmanagement.services.Impl;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Service;
+
+import com.hospitalmanagement.hospitalmanagement.services.SeleniumService;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 

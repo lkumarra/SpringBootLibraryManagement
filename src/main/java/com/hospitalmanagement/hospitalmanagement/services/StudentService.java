@@ -15,5 +15,7 @@ public interface StudentService {
 	public Students updateStudentDetails(long id, Students students);
 	
 	public String inactiveStudent(long id);
+	
+	public List<Students> addStudnents(List<Students> students);
 
 }

@@ -11,36 +11,39 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.hospitalmanagement.hospitalmanagement.entities.StudentBookMapping;
 import com.hospitalmanagement.hospitalmanagement.services.StudentBookMappingService;
 
 @Controller
+@RequestMapping("/menu")
 public class StudentBookController {
 
 	@Autowired
 	StudentBookMappingService studentBookMappingService;
 
-	@PostMapping("/menu/issuebook")
+	@PostMapping("/issueBook")
 	public ResponseEntity<HashMap<String, Object>> issueBook(
 			@Validated @RequestBody StudentBookMapping studentBookMapping) {
 		return new ResponseEntity<HashMap<String, Object>>(studentBookMappingService.issueBook(studentBookMapping),
 				HttpStatus.CREATED);
 	}
 
-	@GetMapping("/menu/bookdetails/{studentId}")
+	@GetMapping("/getIssuedBookDetails/{studentId}")
 	public ResponseEntity<HashMap<String, Object>> getAllBooksAssignedToStudent(@PathVariable long studentId) {
 		return new ResponseEntity<HashMap<String, Object>>(
 				studentBookMappingService.getAllIssuedBookToStudent(studentId), HttpStatus.OK);
 	}
 
-	@PostMapping("/menu/returnbook")
+	@PostMapping("/returnBook")
 	public ResponseEntity<HashMap<String, Object>> returnBook(
 			@Validated @RequestBody StudentBookMapping studentBookMapping) {
 		return new ResponseEntity<HashMap<String, Object>>(studentBookMappingService.returnBook(studentBookMapping),
 				HttpStatus.OK);
 	}
 
-	@GetMapping("/menu/allissuedbooks")
+	@GetMapping("/getAllIssuedBooks")
 	public ResponseEntity<List<HashMap<String, Object>>> getAllBooksIssuedToStudents() {
 		return new ResponseEntity<List<HashMap<String, Object>>>(
 				studentBookMappingService.getAllBooksIssuedToStudents(), HttpStatus.OK);

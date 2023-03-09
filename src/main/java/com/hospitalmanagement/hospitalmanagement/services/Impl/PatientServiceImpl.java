@@ -1,4 +1,4 @@
-package com.hospitalmanagement.hospitalmanagement.services;
+package com.hospitalmanagement.hospitalmanagement.services.Impl;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.hospitalmanagement.hospitalmanagement.entities.Patient;
 import com.hospitalmanagement.hospitalmanagement.repositories.PatientRepository;
+import com.hospitalmanagement.hospitalmanagement.services.PatientService;
 
 @Service
 public class PatientServiceImpl implements PatientService {
