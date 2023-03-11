@@ -87,6 +87,8 @@ public class StudentServiceImpl implements StudentService {
 					StudentErrorMessages.INVALID_DEPARTMENT_NAME);
 		else {
 			students.setUpdatedAt(Instant.now().toEpochMilli());
+			Students student = studentRespository.findById(id).get();
+			students.setCreatedAt(student.getCreatedAt());
 			return studentRespository.save(students);
 		}
 	}
@@ -99,6 +101,8 @@ public class StudentServiceImpl implements StudentService {
 		else {
 			Students students = studentRespository.findById(id).get();
 			students.setStatus(false);
+			long updatedAt = Instant.now().toEpochMilli();
+			students.setUpdatedAt(updatedAt);
 			studentRespository.save(students);
 			return String.format(StudentErrorMessages.STUDENT_MARKED_INACTIVE, id);
 		}

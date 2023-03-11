@@ -17,7 +17,7 @@ import com.hospitalmanagement.hospitalmanagement.entities.StudentBookMapping;
 import com.hospitalmanagement.hospitalmanagement.services.StudentBookMappingService;
 
 @Controller
-@RequestMapping("/menu")
+@RequestMapping("/api/v1/managebook")
 public class StudentBookController {
 
 	@Autowired

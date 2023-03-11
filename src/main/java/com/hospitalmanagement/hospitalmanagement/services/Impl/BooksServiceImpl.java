@@ -12,6 +12,9 @@ import com.hospitalmanagement.hospitalmanagement.entities.Books;
 import com.hospitalmanagement.hospitalmanagement.repositories.BooksRepository;
 import com.hospitalmanagement.hospitalmanagement.services.BooksService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class BooksServiceImpl implements BooksService {
 
@@ -23,6 +26,7 @@ public class BooksServiceImpl implements BooksService {
 
 	@Override
 	public List<Books> getAllBooks() {
+		log.debug("Successfully get the books");
 		return (List<Books>) booksRepository.findAll();
 	}
 
@@ -38,12 +42,27 @@ public class BooksServiceImpl implements BooksService {
 
 	@Override
 	public Books updateBooksDetails(long id, Books book) {
-		if (!booksRepository.existsById(id)) {
+		if (!booksRepository.existsById(id))
 			throw responseStatusUtility.responseStatusException(HttpStatus.NOT_FOUND,
 					BooksErrorMessages.BOOK_NOT_EXISTS);
-		} else {
-			book.setId(id);
-			return booksRepository.save(book);
+		else {
+			if (isBookNameInvalid(book))
+				throw responseStatusUtility.responseStatusException(HttpStatus.BAD_REQUEST,
+						BooksErrorMessages.INVALID_BOOK_NAME);
+			else if (isBookAuthorInvalid(book))
+				throw responseStatusUtility.responseStatusException(HttpStatus.BAD_REQUEST,
+						BooksErrorMessages.INVALID_BOOK_AUTHOR);
+			else if (isBookDepartmentInvalid(book))
+				throw responseStatusUtility.responseStatusException(HttpStatus.BAD_REQUEST,
+						BooksErrorMessages.INVALID_BOOK_DEPARTMENT);
+			else {
+				book.setId(id);
+				Books books = booksRepository.findById(id).get();
+				book.setCreatedAt(books.getCreatedAt());
+				long updatedAt = Instant.now().toEpochMilli();
+				book.setUpdatedAt(updatedAt);
+				return booksRepository.save(book);
+			}
 		}
 	}
 
@@ -54,6 +73,8 @@ public class BooksServiceImpl implements BooksService {
 					BooksErrorMessages.BOOK_NOT_EXISTS);
 		} else {
 			Books book = booksRepository.findById(id).get();
+			long updatedAt = Instant.now().toEpochMilli();
+			book.setUpdatedAt(updatedAt);
 			book.setStatus(false);
 			return booksRepository.save(book);
 		}
