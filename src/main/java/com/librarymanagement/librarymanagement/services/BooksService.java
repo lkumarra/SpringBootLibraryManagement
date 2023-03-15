@@ -2,23 +2,27 @@ package com.librarymanagement.librarymanagement.services;
 
 import java.util.List;
 import java.util.Map;
-
 import com.librarymanagement.librarymanagement.entities.Books;
+import com.librarymanagement.librarymanagement.modals.FilterBooksModal;
 
 public interface BooksService {
 
-	public List<Books> getAllBooks();
+	List<Books> getAllBooks();
 
-	public Books getBooksDetailsById(long id);
+	Books getBooksDetailsById(long id);
 
-	public Books updateBooksDetails(long id, Books books);
+	Books updateBooksDetails(long id, Books books);
 
-	public Books addBook(Books book);
+	Books addBook(Books book);
 
-	public Books markBookAsInactice(long id);
+	Books markBookAsInactive(long id);
 
-	public List<Books> addBooks(List<Books> book);
+	List<Books> addBooks(List<Books> book);
 	
-	public Map<String, String> deleteBook(long id);
+	Map<String, String> deleteBook(long id);
+
+	List<Books> searchBooks(String bookName);
+
+	List<Books> filterBooks(FilterBooksModal filterBooksModal);
 
 }

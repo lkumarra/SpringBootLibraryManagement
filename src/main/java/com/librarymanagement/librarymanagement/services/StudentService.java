@@ -5,21 +5,25 @@ import java.util.List;
 import java.util.Map;
 
 import com.librarymanagement.librarymanagement.entities.Students;
+import com.librarymanagement.librarymanagement.modals.FilterStudentsModal;
 
 public interface StudentService {
 	
-	public List<Students> getAllStudents();
+	List<Students> getAllStudents();
 	
-	public Students getStudentDetailsById(long id);
+	Students getStudentDetailsById(long id);
 	
-	public Students addStudent(Students students);
+	Students addStudent(Students students);
 	
-	public Students updateStudentDetails(long id, Students students);
+	Students updateStudentDetails(long id, Students students);
 	
-	public Map<String, String> inactiveStudent(long id);
+	Map<String, String> inactiveStudent(long id);
 	
-	public List<Students> addStudnents(List<Students> students);
+	List<Students> addStudents(List<Students> students);
 	
-	public HashMap<String, String> deleteStudent(long studentId);
+	HashMap<String, String> deleteStudent(long studentId);
 
+	List<Students> searchStudents(String students);
+
+	List<Students> filterStudents(FilterStudentsModal filterStudentsModal);
 }

@@ -2,22 +2,15 @@ package com.librarymanagement.librarymanagement.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.security.RolesAllowed;
 
+import com.librarymanagement.librarymanagement.modals.FilterBooksModal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import com.librarymanagement.librarymanagement.entities.Books;
 import com.librarymanagement.librarymanagement.services.BooksService;
 
@@ -61,7 +54,7 @@ public class BooksController {
 	@PutMapping("/inActiveBook/{id}")
 	@RolesAllowed("LIBRARIAN")
 	public ResponseEntity<Books> deActivateBook(@PathVariable long id) {
-		return ResponseEntity.ok(booksService.markBookAsInactice(id));
+		return ResponseEntity.ok(booksService.markBookAsInactive(id));
 	}
 
 	@DeleteMapping("/deleteBook/{id}")
@@ -69,4 +62,17 @@ public class BooksController {
 	public ResponseEntity<Map<String, String>> deleteBook(@PathVariable long id) {
 		return ResponseEntity.ok(booksService.deleteBook(id));
 	}
+
+	@GetMapping("/searchBook")
+	@RolesAllowed("LIBRARIAN")
+	public ResponseEntity<List<Books>> searchStudents(@RequestParam String bookName){
+		return ResponseEntity.ok(booksService.searchBooks(bookName));
+	}
+
+	@PostMapping("/filterBooks")
+	@RolesAllowed("LIBRARIAN")
+	public ResponseEntity<List<Books>> filterBooks(@Validated @RequestBody FilterBooksModal filterBooksModal){
+		return ResponseEntity.ok(booksService.filterBooks(filterBooksModal));
+	}
+
 }

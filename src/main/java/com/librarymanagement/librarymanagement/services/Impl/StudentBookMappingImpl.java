@@ -92,18 +92,18 @@ public class StudentBookMappingImpl implements StudentBookMappingService {
 				try {
 					hashMap.put("message", issueBookToStudent(studentBookMapping));
 				} catch (Exception e) {
-					log.error("Error occured while issue the book to student with error message : {}", e.getMessage());
+					log.error("Error occurred while issue the book to student with error message : {}", e.getMessage());
 					throw responseStatusUtility
-							.internalServerErrorStatusException("Error occured while issue the book to student");
+							.internalServerErrorStatusException("Error occurred while issue the book to student");
 				}
 			}
 		} else {
 			try {
 				hashMap.put("message", issueBookToStudent(studentBookMapping));
 			} catch (Exception e) {
-				log.error("Error occured while issue the book to student with error message : {}", e.getMessage());
+				log.error("Error occurred while issue the book to student with error message : {}", e.getMessage());
 				throw responseStatusUtility
-						.internalServerErrorStatusException("Error occured while issue the book to student");
+						.internalServerErrorStatusException("Error occurred while issue the book to student");
 			}
 		}
 		return hashMap;
@@ -131,10 +131,10 @@ public class StudentBookMappingImpl implements StudentBookMappingService {
 				try {
 					hashMap.put("message", returnBookFromStudent(studentBookMapping));
 				} catch (Exception e) {
-					log.error("Error occured while returing the book from student with error message : {}",
+					log.error("Error occurred while returning the book from student with error message : {}",
 							e.getMessage());
 					throw responseStatusUtility
-							.internalServerErrorStatusException("Error occured while returing the book");
+							.internalServerErrorStatusException("Error occurred while returning the book");
 				}
 			}
 		}
@@ -161,10 +161,10 @@ public class StudentBookMappingImpl implements StudentBookMappingService {
 				booksMap.put("booksDetails", books);
 				return booksMap;
 			} catch (Exception e) {
-				log.error("Error occured while fetching the issued books to a student with error messge : {}",
+				log.error("Error occurred while fetching the issued books to a student with error message : {}",
 						e.getMessage());
 				throw responseStatusUtility.internalServerErrorStatusException(
-						"Error occured while fetching the issued books to a student");
+						"Error occurred while fetching the issued books to a student");
 			}
 		}
 	}
@@ -182,9 +182,9 @@ public class StudentBookMappingImpl implements StudentBookMappingService {
 			});
 			return studentBooksList;
 		} catch (Exception e) {
-			log.error("Error occured while fetching all issued books with error message : {}", e.getMessage());
+			log.error("Error occurred while fetching all issued books with error message : {}", e.getMessage());
 			throw responseStatusUtility
-					.internalServerErrorStatusException("Error occured while fetching all issued books");
+					.internalServerErrorStatusException("Error occurred while fetching all issued books");
 		}
 	}
 

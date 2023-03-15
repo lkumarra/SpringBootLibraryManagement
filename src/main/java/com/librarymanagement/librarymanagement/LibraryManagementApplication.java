@@ -7,10 +7,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class LibararyManagementApplication {
+public class LibraryManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LibararyManagementApplication.class, args);
+		SpringApplication.run(LibraryManagementApplication.class, args);
 	}
 
 }

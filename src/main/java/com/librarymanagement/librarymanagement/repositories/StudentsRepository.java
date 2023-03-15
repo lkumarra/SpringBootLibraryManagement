@@ -10,4 +10,8 @@ import com.librarymanagement.librarymanagement.entities.Students;
 public interface StudentsRepository extends CrudRepository<Students, Long>{
 	
 	List<Students> findByRollNo(long rollNo);
+
+	List<Students> findByStudentNameAndDepartmentAndRollNoAndStatus(String studentName, String department, long rollNo, boolean status);
+
+	List<Students> findByStudentNameOrDepartmentOrRollNoOrStatus(String studentName, String department, long rollNo, boolean status);
 }

@@ -21,6 +21,12 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	ResponseStatusUtility responseStatusUtil;
 
+	/**
+	 * Return the token
+	 * @param clientId : Client Id
+	 * @param clientSecret : Client Secret
+	 * @return Access token
+	 */
 	@Override
 	public LoginDTO login(String clientId, String clientSecret) {
 		try {

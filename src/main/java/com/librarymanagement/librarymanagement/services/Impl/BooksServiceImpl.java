@@ -1,9 +1,13 @@
 package com.librarymanagement.librarymanagement.services.Impl;
 
+import java.awt.print.Book;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
+import com.librarymanagement.librarymanagement.modals.FilterBooksModal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
@@ -28,16 +32,25 @@ public class BooksServiceImpl implements BooksService {
 	@Autowired
 	public StudentBookMappingRepository studentBookMappingRepo;
 
+	/**
+	 * Get All Books
+	 * @return All book records
+	 */
 	@Override
 	public List<Books> getAllBooks() {
 		try {
 			return (List<Books>) booksRepository.findAll();
 		} catch (Exception e) {
-			log.error("Error occured while fetching the books with error message : {}", e.getMessage());
-			throw responseStatusUtility.internalServerErrorStatusException("Error occured while fetching the books");
+			log.error("Error occurred while fetching the books with error message : {}", e.getMessage());
+			throw responseStatusUtility.internalServerErrorStatusException("Error occurred while fetching the books");
 		}
 	}
 
+	/**
+	 * Get Book Details by id
+	 * @param id Id to fetch books
+	 * @return Book Records
+	 */
 	@Override
 	public Books getBooksDetailsById(long id) {
 		if (!booksRepository.existsById(id)) {
@@ -46,12 +59,18 @@ public class BooksServiceImpl implements BooksService {
 			try {
 				return booksRepository.findById(id).get();
 			} catch (Exception e) {
-				log.error("Error occured while fetching the book with error message : {}", e.getMessage());
-				throw responseStatusUtility.internalServerErrorStatusException("Error occured while fetching the book");
+				log.error("Error occurred while fetching the book with error message : {}", e.getMessage());
+				throw responseStatusUtility.internalServerErrorStatusException("Error occurred while fetching the book");
 			}
 		}
 	}
 
+	/**
+	 * Update Books
+	 * @param id Id to update book
+	 * @param book Book record to update
+	 * @return Updated Book record
+	 */
 	@Override
 	public Books updateBooksDetails(long id, Books book) {
 		if (!booksRepository.existsById(id))
@@ -72,16 +91,16 @@ public class BooksServiceImpl implements BooksService {
 					book.setUpdatedAt(updatedAt);
 					return booksRepository.save(book);
 				} catch (Exception e) {
-					log.error("Error occured while saving the book with error message:{}", e.getMessage());
+					log.error("Error occurred while saving the book with error message:{}", e.getMessage());
 					throw responseStatusUtility
-							.internalServerErrorStatusException("Error occured while updating the book");
+							.internalServerErrorStatusException("Error occurred while updating the book");
 				}
 			}
 		}
 	}
 
 	@Override
-	public Books markBookAsInactice(long id) {
+	public Books markBookAsInactive(long id) {
 		if (!booksRepository.existsById(id)) {
 			throw responseStatusUtility.notFoundStatusException(BooksErrorMessages.BOOK_NOT_EXISTS);
 		} else if (Objects.nonNull(studentBookMappingRepo.findByBookIdAndBookIssued(id, true)))
@@ -94,9 +113,9 @@ public class BooksServiceImpl implements BooksService {
 				book.setStatus(false);
 				return booksRepository.save(book);
 			} catch (Exception e) {
-				log.error("Error occured while marking the book inactive with error message : {}", e.getMessage());
+				log.error("Error occurred while marking the book inactive with error message : {}", e.getMessage());
 				throw responseStatusUtility
-						.internalServerErrorStatusException("Error occured while marking the student as inactive");
+						.internalServerErrorStatusException("Error occurred while marking the student as inactive");
 			}
 		}
 	}
@@ -119,8 +138,8 @@ public class BooksServiceImpl implements BooksService {
 				book.setStatus(true);
 				return booksRepository.save(book);
 			} catch (Exception e) {
-				log.error("Error occured while adding the book with error message : {}", e.getMessage());
-				throw responseStatusUtility.internalServerErrorStatusException("Error occured while adding the book");
+				log.error("Error occurred while adding the book with error message : {}", e.getMessage());
+				throw responseStatusUtility.internalServerErrorStatusException("Error occurred while adding the book");
 			}
 		}
 	}
@@ -148,8 +167,8 @@ public class BooksServiceImpl implements BooksService {
 			try {
 				booksListResponse.add(addBook(book));
 			} catch (Exception e) {
-				log.error("Error occured while adding the books with error message : {}", e.getMessage());
-				throw responseStatusUtility.internalServerErrorStatusException("Error occured while adding the book");
+				log.error("Error occurred while adding the books with error message : {}", e.getMessage());
+				throw responseStatusUtility.internalServerErrorStatusException("Error occurred while adding the book");
 			}
 		}
 		return booksListResponse;
@@ -214,8 +233,48 @@ public class BooksServiceImpl implements BooksService {
 				hashMap.put("message", "Success");
 				return hashMap;
 			} catch (Exception e) {
-				log.error("Error occured while deleting the book with error message : {}", e.getMessage());
-				throw responseStatusUtility.internalServerErrorStatusException("Error occured while deleting the book");
+				log.error("Error occurred while deleting the book with error message : {}", e.getMessage());
+				throw responseStatusUtility.internalServerErrorStatusException("Error occurred while deleting the book");
+			}
+		}
+	}
+
+	@Override
+	public List<Books> searchBooks(String bookName) {
+		if(Objects.isNull(bookName) || bookName.isEmpty() || bookName.isBlank()){
+			throw responseStatusUtility.badRequestStatusException(BooksErrorMessages.INVALID_BOOK_NAME);
+		}else{
+			try{
+				List<Books>  books = (List<Books>) booksRepository.findAll();
+				return books.stream().filter(x->x.getBookName().contains(bookName)).collect(Collectors.toList());
+			}catch (Exception e){
+				log.error("Error while searching the book : {} with error message : {}", bookName, e.getMessage());
+				throw responseStatusUtility.internalServerErrorStatusException("Error while searching the book ");
+			}
+		}
+	}
+
+	@Override
+	public List<Books> filterBooks(FilterBooksModal filterBooksModal) {
+		if(Objects.isNull(filterBooksModal.getBookName())){
+			throw responseStatusUtility.badRequestStatusException(BooksErrorMessages.INVALID_BOOK_NAME);
+		}else if(Objects.isNull(filterBooksModal.getBookAuthor())){
+			throw responseStatusUtility.badRequestStatusException(BooksErrorMessages.INVALID_BOOK_AUTHOR);
+		}else if(Objects.isNull(filterBooksModal.getDepartment())){
+			throw responseStatusUtility.badRequestStatusException(BooksErrorMessages.INVALID_BOOK_DEPARTMENT);
+		}else{
+			try {
+				switch (filterBooksModal.getOperator()) {
+					case and:
+						return booksRepository.findBooksByBookNameAndBookAuthorAndDepartmentAndStatus(filterBooksModal.getBookName(), filterBooksModal.getBookAuthor(), filterBooksModal.getDepartment(), filterBooksModal.isStatus());
+					case or:
+						return booksRepository.findBooksByBookNameOrBookAuthorOrDepartmentOrStatus(filterBooksModal.getBookName(), filterBooksModal.getBookAuthor(), filterBooksModal.getDepartment(), filterBooksModal.isStatus());
+					default:
+						return (List<Books>) booksRepository.findAll();
+				}
+			}catch (Exception e){
+				log.error("Error occurred while filtering the records with error message : {}",e.getMessage());
+				throw responseStatusUtility.internalServerErrorStatusException("Error occurred while filtering the records");
 			}
 		}
 	}
