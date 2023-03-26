@@ -26,7 +26,7 @@ public class Students {
 	private String studentName;
 	
 	@Column(name = "roll_no")
-	private long rollNo;
+	private Long rollNo;
 	
 	@Column(name = "department")
 	private String department;

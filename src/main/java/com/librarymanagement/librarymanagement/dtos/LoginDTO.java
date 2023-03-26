@@ -1,4 +1,4 @@
-package com.librarymanagement.librarymanagement.entities;
+package com.librarymanagement.librarymanagement.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

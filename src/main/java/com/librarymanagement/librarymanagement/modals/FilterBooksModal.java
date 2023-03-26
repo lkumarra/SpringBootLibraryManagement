@@ -1,22 +1,33 @@
 package com.librarymanagement.librarymanagement.modals;
 
+import com.librarymanagement.librarymanagement.enums.BooksFieldsEnum;
+import com.librarymanagement.librarymanagement.enums.OrderEnum;
+import com.librarymanagement.librarymanagement.enums.SortingFields;
 import lombok.Getter;
 import lombok.Setter;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.validation.annotation.Validated;
+import java.util.List;
 
 @Getter
 @Setter
 @Validated
 public class FilterBooksModal {
+    List<Filters> filters;
+    Sort sort;
 
-    private String bookAuthor;
+    @Getter
+    @Setter
+    @Validated
+    public static class Filters{
+        private BooksFieldsEnum field;
+        private String value;
+    }
 
-    private String bookName;
+    @Getter
+    @Setter
+    public static class Sort{
+        private SortingFields field;
+        private OrderEnum order;
+    }
 
-    private String department;
-
-    private Operator operator;
-
-    private boolean status;
 }

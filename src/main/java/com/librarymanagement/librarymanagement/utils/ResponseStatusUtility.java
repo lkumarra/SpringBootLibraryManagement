@@ -1,4 +1,4 @@
-package com.librarymanagement.librarymanagement.services.Impl;
+package com.librarymanagement.librarymanagement.utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

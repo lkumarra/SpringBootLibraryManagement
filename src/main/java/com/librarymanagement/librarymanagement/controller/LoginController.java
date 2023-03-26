@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.librarymanagement.librarymanagement.entities.LoginDTO;
+import com.librarymanagement.librarymanagement.dtos.LoginDTO;
 import com.librarymanagement.librarymanagement.services.LoginService;
 
 @Controller

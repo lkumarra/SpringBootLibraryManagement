@@ -1,14 +1,19 @@
 package com.librarymanagement.librarymanagement.services.Impl;
 
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import com.librarymanagement.librarymanagement.enums.OrderEnum;
+import com.librarymanagement.librarymanagement.enums.SortingFields;
+import com.librarymanagement.librarymanagement.enums.StudentsFields;
+import com.librarymanagement.librarymanagement.modals.FilterBooksModal.*;
 import com.librarymanagement.librarymanagement.modals.FilterStudentsModal;
+import com.librarymanagement.librarymanagement.utils.ResponseStatusUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -36,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Students> getAllStudents() {
         try {
-            return (List<Students>) studentRepository.findAll();
+            return studentRepository.findAll();
         } catch (Exception e) {
             log.error("Error occurred while fetching the students with error message : {}", e.getMessage());
             throw responseStatusUtility.internalServerErrorStatusException("Error occurred while getting the students");
@@ -153,10 +158,7 @@ public class StudentServiceImpl implements StudentService {
             return false;
         else if (isStudentDepartmentValid(students))
             return false;
-        else if (studentRepository.findByRollNo(students.getRollNo()).isEmpty())
-            return true;
-        else
-            return false;
+        else return studentRepository.findByRollNo(students.getRollNo()).isEmpty();
     }
 
     @Override
@@ -228,21 +230,69 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Students> filterStudents(FilterStudentsModal filterStudentsModal) {
-        if (Objects.isNull(filterStudentsModal.getStudentName()))
-            throw responseStatusUtility.badRequestStatusException(StudentErrorMessages.INVALID_STUDENT_NAME);
-        else if (Objects.isNull(filterStudentsModal.getDepartment()))
-            throw responseStatusUtility.badRequestStatusException(StudentErrorMessages.INVALID_DEPARTMENT_NAME);
-        else {
-            switch (filterStudentsModal.getOperator()) {
-                case and:
-                    return studentRepository.findByStudentNameAndDepartmentAndRollNoAndStatus(filterStudentsModal.getStudentName(), filterStudentsModal.getDepartment(), filterStudentsModal.getRollNo(), filterStudentsModal.isStatus());
-                case or:
-                    return studentRepository.findByStudentNameOrDepartmentOrRollNoOrStatus(filterStudentsModal.getStudentName(), filterStudentsModal.getDepartment(), filterStudentsModal.getRollNo(), filterStudentsModal.isStatus());
-                default:
-                    return (List<Students>) studentRepository.findAll();
-            }
+    public List<Students> filterStudents(int pageNo, int pageSize, FilterStudentsModal filterStudentsModal) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Students> page = studentRepository.findAll(pageable);
+        List<Students> studentsList = page.toList();
+        for (FilterStudentsModal.Filters filters : filterStudentsModal.getFilters()) {
+            studentsList = filterStudentsFields(filters.getField(), filters.getValue(), studentsList);
         }
+        return sortStudentsList(filterStudentsModal.getSort().getField(), filterStudentsModal.getSort().getOrder(), studentsList);
+    }
+
+    public List<Students> filterStudentsFields(StudentsFields studentsFields, String value, List<Students> studentsList) {
+        switch (studentsFields) {
+            case studentName:
+                if (Objects.isNull(value) || value.isEmpty())
+                    return studentsList;
+                else
+                    return studentsList.stream().filter(student -> student.getStudentName().equals(value)).collect(Collectors.toList());
+            case status:
+                if (Objects.isNull(value) || value.isEmpty())
+                    return studentsList;
+                else if (value.equalsIgnoreCase("active"))
+                    return studentsList.stream().filter(Students::isStatus).collect(Collectors.toList());
+                else
+                    return studentsList.stream().filter(students -> !students.isStatus()).collect(Collectors.toList());
+            case rollNo:
+                if (Objects.isNull(value) || value.isEmpty())
+                    return studentsList;
+                else
+                    return studentsList.stream().filter(students -> students.getRollNo().equals(Long.parseLong(value))).collect(Collectors.toList());
+            case department:
+                if (Objects.isNull(value) || value.isEmpty())
+                    return studentsList;
+                else
+                    return studentsList.stream().filter(students -> students.getDepartment().equals(value)).collect(Collectors.toList());
+        }
+        return studentsList;
+    }
+
+    public static List<Students> sortStudentsList(SortingFields sortingFields, OrderEnum orderEnum, List<Students> studentsList) {
+        switch (sortingFields) {
+            case createdAt:
+                switch (orderEnum) {
+                    case ASC:
+                        return studentsList.stream().sorted(Comparator.comparingLong(Students::getCreatedAt)).collect(Collectors.toList());
+                    case DESC:
+                        return studentsList.stream().sorted(Comparator.comparingLong(Students::getCreatedAt).reversed()).collect(Collectors.toList());
+                }
+            case updatedAt:
+                switch (orderEnum) {
+                    case ASC:
+                        return studentsList.stream().sorted(Comparator.comparingLong(Students::getUpdatedAt)).collect(Collectors.toList());
+                    case DESC:
+                        return studentsList.stream().sorted(Comparator.comparingLong(Students::getUpdatedAt).reversed()).collect(Collectors.toList());
+                }
+            case rollNo:
+                switch (orderEnum) {
+                    case ASC:
+                        return studentsList.stream().sorted(Comparator.comparingLong(Students::getRollNo)).collect(Collectors.toList());
+                    case DESC:
+                        return studentsList.stream().sorted(Comparator.comparingLong(Students::getRollNo).reversed()).collect(Collectors.toList());
+                }
+        }
+        return studentsList;
     }
 
 }

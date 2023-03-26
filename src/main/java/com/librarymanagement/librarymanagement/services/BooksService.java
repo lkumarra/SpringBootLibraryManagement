@@ -23,6 +23,6 @@ public interface BooksService {
 
 	List<Books> searchBooks(String bookName);
 
-	List<Books> filterBooks(FilterBooksModal filterBooksModal);
+	List<Books> filterBooks(int pageNo, int pageSize,FilterBooksModal filterBooksModal);
 
 }

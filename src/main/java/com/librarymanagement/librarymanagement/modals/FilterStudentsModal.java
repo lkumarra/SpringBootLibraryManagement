@@ -1,22 +1,36 @@
 package com.librarymanagement.librarymanagement.modals;
 
+import com.librarymanagement.librarymanagement.enums.OrderEnum;
+import com.librarymanagement.librarymanagement.enums.SortingFields;
+import com.librarymanagement.librarymanagement.enums.StudentsFields;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
 
 @Getter
 @Setter
 @Validated
 public class FilterStudentsModal {
 
-    private String studentName;
+ List<Filters> filters;
+ Sort sort;
 
-    private String department;
+ @Getter
+ @Setter
+ @Validated
+ public static class Filters{
+  private StudentsFields field;
+  private String value;
+ }
 
-    private long rollNo;
-
-    private Operator operator;
-
-    private boolean status;
+ @Getter
+ @Setter
+ @Validated
+ public static class Sort{
+  private SortingFields field;
+  private OrderEnum order;
+ }
 
 }

@@ -1,6 +1,6 @@
 package com.librarymanagement.librarymanagement.services;
 
-import com.librarymanagement.librarymanagement.entities.LoginDTO;
+import com.librarymanagement.librarymanagement.dtos.LoginDTO;
 
 public interface LoginService {
 	

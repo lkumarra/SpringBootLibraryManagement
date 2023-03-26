@@ -71,8 +71,8 @@ public class BooksController {
 
 	@PostMapping("/filterBooks")
 	@RolesAllowed("LIBRARIAN")
-	public ResponseEntity<List<Books>> filterBooks(@Validated @RequestBody FilterBooksModal filterBooksModal){
-		return ResponseEntity.ok(booksService.filterBooks(filterBooksModal));
+	public ResponseEntity<List<Books>> filterBooks(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize,@Validated @RequestBody FilterBooksModal filterBooksModal){
+		return ResponseEntity.ok(booksService.filterBooks(pageNo, pageSize,filterBooksModal));
 	}
 
 }

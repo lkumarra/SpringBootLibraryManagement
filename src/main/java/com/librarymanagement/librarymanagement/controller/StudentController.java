@@ -3,8 +3,6 @@ package com.librarymanagement.librarymanagement.controller;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.security.RolesAllowed;
-
-import com.librarymanagement.librarymanagement.modals.FilterBooksModal;
 import com.librarymanagement.librarymanagement.modals.FilterStudentsModal;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +26,10 @@ public class StudentController {
     StudentService studentService;
 
     @ApiOperation(value = "Get all the students", nickname = "getStudents")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "return all students", response = Students.class, responseContainer = "List")})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "return all students", response = Students.class, responseContainer = "List"),
+            @ApiResponse(code = 500, message = "Error occurred while getting the students")
+    })
     @GetMapping(value = "/getAllStudents", produces = {"application/json"})
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<List<Students>> getAllStudents() {
@@ -36,19 +37,35 @@ public class StudentController {
     }
 
     @ApiOperation(value = "Get Student by id", nickname = "getStudentById")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "return the student", response = Students.class), @ApiResponse(code = 404, message = "Not found")})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "return the student", response = Students.class),
+            @ApiResponse(code = 404, message = "Not found")
+    })
     @GetMapping("/getStudent/{id}")
     @RolesAllowed({"LIBRARIAN", "STUDENT"})
     public ResponseEntity<Students> getStudentsById(@PathVariable long id) {
         return ResponseEntity.ok(studentService.getStudentDetailsById(id));
     }
 
+    @ApiOperation(value = "Add student", nickname = "addStudent")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Student saved successfully", response = Students.class),
+            @ApiResponse(code = 400, message = "Invalid book name, department or author"),
+            @ApiResponse(code = 500, message = "Error occurred while adding the student"),
+            @ApiResponse(code = 409, message = "Duplicate Roll no")})
     @PostMapping("/addStudent")
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<Students> addStudent(@Validated @RequestBody Students students) {
         return new ResponseEntity<Students>(studentService.addStudent(students), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "add students", nickname = "addStudents")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Students saved successfully"),
+            @ApiResponse(code = 400, message = "Invalid book name, department or author"),
+            @ApiResponse(code = 409, message = "Duplicate roll no"),
+            @ApiResponse(code = 500, message = "Error occurred while saving the students")
+    })
     @PostMapping("/addStudents")
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<List<Students>> addStudents(@Validated @RequestBody List<Students> students) {
@@ -81,8 +98,8 @@ public class StudentController {
 
     @PostMapping("/filterStudents")
     @RolesAllowed("LIBRARIAN")
-    public ResponseEntity<List<Students>> filterStudents(@RequestBody FilterStudentsModal filterStudentsModal) {
-        return ResponseEntity.ok(studentService.filterStudents(filterStudentsModal));
+    public ResponseEntity<List<Students>> filterStudents(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "5") int pageSize, @RequestBody FilterStudentsModal filterStudentsModal) {
+        return ResponseEntity.ok(studentService.filterStudents(pageNo, pageSize,filterStudentsModal));
     }
 
 }

@@ -25,5 +25,5 @@ public interface StudentService {
 
 	List<Students> searchStudents(String students);
 
-	List<Students> filterStudents(FilterStudentsModal filterStudentsModal);
+	List<Students> filterStudents(int pageNo, int pageSize,FilterStudentsModal filterStudentsModal);
 }
