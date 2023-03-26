@@ -12,6 +12,7 @@ import com.librarymanagement.librarymanagement.enums.OrderEnum;
 import com.librarymanagement.librarymanagement.enums.SortingFields;
 import com.librarymanagement.librarymanagement.modals.FilterBooksModal;
 import com.librarymanagement.librarymanagement.utils.ResponseStatusUtility;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -297,7 +298,7 @@ public class BooksServiceImpl implements BooksService {
             throw responseStatusUtility.badRequestStatusException(BooksErrorMessages.INVALID_BOOK_NAME);
         } else {
             try {
-                List<Books> books = (List<Books>) booksRepository.findAll();
+                List<Books> books = booksRepository.findAll();
                 return books.stream().filter(x -> x.getBookName().contains(bookName)).collect(Collectors.toList());
             } catch (Exception e) {
                 log.error("Error while searching the book : {} with error message : {}", bookName, e.getMessage());
@@ -313,11 +314,11 @@ public class BooksServiceImpl implements BooksService {
      * @return
      */
     @Override
-    public List<Books> filterBooks(int pageNo, int pageSize,FilterBooksModal filterBooksModal) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Books> books = booksRepository.findAll(pageable);
-        List<Books> booksList = books.toList();
+    public List<Books> filterBooks(int pageNo, int pageSize, FilterBooksModal filterBooksModal) {
         try {
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+            Page<Books> books = booksRepository.findAll(pageable);
+            List<Books> booksList = books.toList();
             for (FilterBooksModal.Filters filters : filterBooksModal.getFilters()) {
                 booksList = filterBookByFields(filters.getField(), filters.getValue(), booksList);
             }
@@ -355,7 +356,7 @@ public class BooksServiceImpl implements BooksService {
         return books;
     }
 
-    public List<Books> sortBooks(SortingFields sortingFields, OrderEnum orderEnum, List<Books> booksList) {
+    public List<Books> sortBooks(@NotNull SortingFields sortingFields, OrderEnum orderEnum, List<Books> booksList) {
         switch (sortingFields) {
             case createdAt:
                 switch (orderEnum) {

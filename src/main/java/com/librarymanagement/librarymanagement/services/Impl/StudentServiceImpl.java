@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import com.librarymanagement.librarymanagement.enums.OrderEnum;
 import com.librarymanagement.librarymanagement.enums.SortingFields;
 import com.librarymanagement.librarymanagement.enums.StudentsFields;
-import com.librarymanagement.librarymanagement.modals.FilterBooksModal.*;
 import com.librarymanagement.librarymanagement.modals.FilterStudentsModal;
 import com.librarymanagement.librarymanagement.utils.ResponseStatusUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -220,7 +219,7 @@ public class StudentServiceImpl implements StudentService {
             throw responseStatusUtility.badRequestStatusException(StudentErrorMessages.INVALID_STUDENT_NAME);
         } else {
             try {
-                List<Students> studentsList = (List<Students>) studentRepository.findAll();
+                List<Students> studentsList = studentRepository.findAll();
                 return studentsList.stream().filter(x -> x.getStudentName().contains(students)).collect(Collectors.toList());
             } catch (Exception e) {
                 log.error("Error occurred while searching the student with error message : {}" + e.getMessage());
@@ -231,13 +230,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Students> filterStudents(int pageNo, int pageSize, FilterStudentsModal filterStudentsModal) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Students> page = studentRepository.findAll(pageable);
-        List<Students> studentsList = page.toList();
-        for (FilterStudentsModal.Filters filters : filterStudentsModal.getFilters()) {
-            studentsList = filterStudentsFields(filters.getField(), filters.getValue(), studentsList);
+        try {
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+            Page<Students> page = studentRepository.findAll(pageable);
+            List<Students> studentsList = page.toList();
+            for (FilterStudentsModal.Filters filters : filterStudentsModal.getFilters()) {
+                studentsList = filterStudentsFields(filters.getField(), filters.getValue(), studentsList);
+            }
+            return sortStudentsList(filterStudentsModal.getSort().getField(), filterStudentsModal.getSort().getOrder(), studentsList);
+        } catch (Exception e) {
+            log.error("Error occurred while filtering the students with error message : {}", e.getMessage());
+            throw responseStatusUtility.internalServerErrorStatusException("Error occurred while filtering the students");
         }
-        return sortStudentsList(filterStudentsModal.getSort().getField(), filterStudentsModal.getSort().getOrder(), studentsList);
     }
 
     public List<Students> filterStudentsFields(StudentsFields studentsFields, String value, List<Students> studentsList) {
