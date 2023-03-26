@@ -1,0 +1,731 @@
+{
+	"info": {
+		"_postman_id": "3d2d45ef-e12c-4716-9658-dbd5adb7ba39",
+		"name": "LibraryManagementSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19558178"
+	},
+	"item": [
+		{
+			"name": "GenerateToken",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "client_id",
+						"value": "library-management",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "at0NdjNJGiWhYu9crMBF9qLbQcOKk2uZ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/login/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"login",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerateTokenStudent",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "client_id",
+						"value": "student",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "zE9xZLAF1rQ2XBWnlV8J2nJ9iswC1wg4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/login/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"login",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllStudents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/getAllStudents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"getAllStudents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllBook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJZOVdYYTFiRzJnYU1zLU9xSTlra2h6elZxTXVaeDAwWHlLcFhBbFJvdk00In0.eyJleHAiOjE2Nzg1NDIwMzcsImlhdCI6MTY3ODU0MTczNywianRpIjoiYzViN2RmMzctMTM5MC00NWEwLTkzYTgtZTNlMzJlZTQ5ZDhmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9saWItbWFuYWdlbWVudCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmYzRhN2JkNC0yYjU0LTRiYjYtOGM1Ni1mOGVmZGFjMWMxNDYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODk4OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiU1RVREVOVCIsIkxJQlJBUklBTiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWxpYi1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiY2xpZW50SG9zdCI6IjEyNy4wLjAuMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlicmFyeS1tYW5hZ2VtZW50IiwiY2xpZW50QWRkcmVzcyI6IjEyNy4wLjAuMSJ9.Mt4FpOOfLCNI7GZDfe8_JgYuANBFEhKQkjMAXRguFpUoUYvIAQ-wI8U6GNxE7B9iubL8WLvWOFJ60hXylTV61TWwgOSDrey3Cx0arT9sSnSkiJCEJ-yX6NEZVZ0oUUSyLn2JgIDm3nPQ_DMKXippRbIO9pm-A10svAZvS39R_sl24kLwkQlX-PEseLRkhHi5dhSj6aXN1D00oYR7LOGBBzXy50hg83hT8-3EZoQcHox3QOJha3RQumD2Df_k0P18Qa969Bvb9F91cuxt_9BqTtiurZZPS_ykmPZhRnqoEFbbpmTJ9nOVzxhfJyZ68daqwDY63EpFVqrpkcFsn0CnBg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/books/getAllBooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"getAllBooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllBooksAssignedToUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/managebook/getIssuedBookDetails/33",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"managebook",
+						"getIssuedBookDetails",
+						"33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllBooksIssued",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/managebook/getAllIssuedBooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"managebook",
+						"getAllIssuedBooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStudentById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/getStudent/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"getStudent",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/books/getBook/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"getBook",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchBook",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/searchBook?bookName=The Psychology of Money",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"searchBook"
+					],
+					"query": [
+						{
+							"key": "bookName",
+							"value": "The Psychology of Money"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchStudents",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJZOVdYYTFiRzJnYU1zLU9xSTlra2h6elZxTXVaeDAwWHlLcFhBbFJvdk00In0.eyJleHAiOjE2Nzg4ODkxNjIsImlhdCI6MTY3ODg4ODg2MSwianRpIjoiODllYTdiMDItOWM1YS00Nzc5LWI5NDYtMDc1ZTdkZTRiOThhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9saWItbWFuYWdlbWVudCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmYzRhN2JkNC0yYjU0LTRiYjYtOGM1Ni1mOGVmZGFjMWMxNDYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODk4OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiU1RVREVOVCIsIkxJQlJBUklBTiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWxpYi1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiY2xpZW50SG9zdCI6IjEyNy4wLjAuMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlicmFyeS1tYW5hZ2VtZW50IiwiY2xpZW50QWRkcmVzcyI6IjEyNy4wLjAuMSJ9.Poi91g7SzWypTnRBoFnKJuIc2xXt2EiW91R6IITcJ-jxM7h_Rx4zoYiWjaPXqpVOQ06L2DmbgAbcxSBNrdoNPsCqHiGVNwtik6eHd0quTYj-xKdQreJ6Y0YJw9biGG0gSUkw1EladDRoT_4sXEce6B4wKDdqbfLxUsqIKqM3r7Papw26YrZ3O2gMlxANn8fklNkf4sXW_V-i4IAh9_mQn48BmcIZxtx52TxhLn6r7X_qQDowPfSqOJDdxN91wp74Qaum-YVCKGfNqv5j58_4gKhbKKHOwDciSbJwkBb0SeZZBtUBHRJTVhLpBzDOjNXEXKpnCIGTS92CWeCPifj7xQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/searchStudent?studentName=Lavendra",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"searchStudent"
+					],
+					"query": [
+						{
+							"key": "studentName",
+							"value": "Lavendra"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddStudent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJZOVdYYTFiRzJnYU1zLU9xSTlra2h6elZxTXVaeDAwWHlLcFhBbFJvdk00In0.eyJleHAiOjE2Nzg4ODQ3NjksImlhdCI6MTY3ODg4NDQ2OSwianRpIjoiNTIyMDJlZGEtOTYzMC00ZDUzLTg5ZjMtMmVmMDEzMmM4NTAwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9saWItbWFuYWdlbWVudCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmYzRhN2JkNC0yYjU0LTRiYjYtOGM1Ni1mOGVmZGFjMWMxNDYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODk4OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiU1RVREVOVCIsIkxJQlJBUklBTiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWxpYi1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiY2xpZW50SG9zdCI6IjEyNy4wLjAuMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlicmFyeS1tYW5hZ2VtZW50IiwiY2xpZW50QWRkcmVzcyI6IjEyNy4wLjAuMSJ9.ZXlV8e_zHJAe7hUqugoL1l5LuWHN8_zDUZYaoZHDT1PJe4gNHKUNgU4Qv36TZ3gc6vygJ7kj0zP84YYwE-ZmSydz2nuEN6Fbmr7H_Ou4eylK-OSE9ag9wEkqbXrF3tWna-d_aUKG0ymvFu_exRQVcwwwM1SIpRhuQLSpvsMjfJX_lbtME4VEWErsqyDTN5O1eDKgCtmOIPciYjEAnwanKPQ7a6ZyTqchd5VrdKpPjw2CEdAFzL0Ms5kCZpMgCVCsSFYQvo9xQAOGru5l89W9SiM5uEkPSBshJFoPf23Ol4tlbWGgqWcD7y0oqTMq6c1ArjQNeSzcQqsdWkkFZy-L9A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"studentName\":\"Rajiv Chauhan\",\r\n    \"department\":\"Engineering\",\r\n    \"rollNo\":11\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/addStudent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"addStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddBook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bookId\":\"c31624f0-bb75-11ed-afa1-0242ac120002\",\r\n    \"bookName\":\"The Psychology of Money\",\r\n    \"bookAuthor\":\"Morgan Housel\",\r\n    \"department\":\"Investment\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/books/addBook",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"addBook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IssueBook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"studentId\":6,\r\n    \"bookId\":5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/managebook/issueBook",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"managebook",
+						"issueBook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReturnBook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"studentId\":2,\r\n    \"bookId\":5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/managebook/returnBook",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"managebook",
+						"returnBook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddBatchStudents",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"studentName\": \"John Doe\",\r\n        \"department\": \"Computer Science\",\r\n        \"rollNo\": 40\r\n    },\r\n    {\r\n        \"studentName\": \"Jane Smith\",\r\n        \"department\": \"Electrical Engineering\",\r\n        \"rollNo\": 41\r\n    },\r\n    {\r\n        \"studentName\": \"Bob Johnson\",\r\n        \"department\": \"Mechanical Engineering\",\r\n        \"rollNo\": 42\r\n    },\r\n    {\r\n        \"studentName\": \"Alice Williams\",\r\n        \"department\": \"Physics\",\r\n        \"rollNo\": 43\r\n    },\r\n    {\r\n        \"studentName\": \"Dave Jones\",\r\n        \"department\": \"Mathematics\",\r\n        \"rollNo\": 44\r\n    },\r\n    {\r\n        \"studentName\": \"Emily Brown\",\r\n        \"department\": \"Computer Science\",\r\n        \"rollNo\": 45\r\n    },\r\n    {\r\n        \"studentName\": \"Frank Davis\",\r\n        \"department\": \"Electrical Engineering\",\r\n        \"rollNo\": 46\r\n    },\r\n    {\r\n        \"studentName\": \"Grace Garcia\",\r\n        \"department\": \"Mechanical Engineering\",\r\n        \"rollNo\": 47\r\n    },\r\n    {\r\n        \"studentName\": \"Harry Wilson\",\r\n        \"department\": \"Physics\",\r\n        \"rollNo\": 48\r\n    },\r\n    {\r\n        \"studentName\": \"Isabel Lee\",\r\n        \"department\": \"Mathematics\",\r\n        \"rollNo\": 49\r\n    },\r\n    {\r\n        \"studentName\": \"James Brown\",\r\n        \"department\": \"Computer Science\",\r\n        \"rollNo\": 50\r\n    },\r\n    {\r\n        \"studentName\": \"Kelly Davis\",\r\n        \"department\": \"Electrical Engineering\",\r\n        \"rollNo\": 51\r\n    },\r\n    {\r\n        \"studentName\": \"Larry Garcia\",\r\n        \"department\": \"Mechanical Engineering\",\r\n        \"rollNo\": 52\r\n    },\r\n    {\r\n        \"studentName\": \"Mia Wilson\",\r\n        \"department\": \"Physics\",\r\n        \"rollNo\": 53\r\n    },\r\n    {\r\n        \"studentName\": \"Nate Lee\",\r\n        \"department\": \"Mathematics\",\r\n        \"rollNo\": 54\r\n    },\r\n    {\r\n        \"studentName\": \"Olivia Brown\",\r\n        \"department\": \"Computer Science\",\r\n        \"rollNo\": 55\r\n    },\r\n    {\r\n        \"studentName\": \"Peter Davis\",\r\n        \"department\": \"Electrical Engineering\",\r\n        \"rollNo\": 56\r\n    },\r\n    {\r\n        \"studentName\": \"Quincy Garcia\",\r\n        \"department\": \"Mechanical Engineering\",\r\n        \"rollNo\": 57\r\n    },\r\n    {\r\n        \"studentName\": \"Rachel Wilson\",\r\n        \"department\": \"Physics\",\r\n        \"rollNo\": 58\r\n    },\r\n    {\r\n        \"studentName\": \"Sam Lee\",\r\n        \"department\": \"Mathematics\",\r\n        \"rollNo\": 59\r\n    },\r\n    {\r\n        \"studentName\": \"Tina Brown\",\r\n        \"department\": \"Computer Science\",\r\n        \"rollNo\": 60\r\n    },\r\n    {\r\n        \"studentName\": \"Uma Davis\",\r\n        \"department\": \"Electrical Engineering\",\r\n        \"rollNo\": 61\r\n    },\r\n    {\r\n        \"studentName\": \"Vince Garcia\",\r\n        \"department\": \"Mechanical Engineering\",\r\n        \"rollNo\": 62\r\n    },\r\n    {\r\n        \"studentName\": \"Wendy Wilson\",\r\n        \"department\": \"Physics\",\r\n        \"rollNo\": 63\r\n    },\r\n    {\r\n        \"studentName\": \"Xander Lee\",\r\n        \"department\": \"Mathematics\",\r\n        \"roll\": 64\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/addStudents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"addStudents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddBooks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"bookId\": \"b990cf6c-82bb-4e2c-a4c4-40e64882d003\",\r\n        \"bookName\": \"The Great Gatsby\",\r\n        \"bookAuthor\": \"F. Scott Fitzgerald\",\r\n        \"department\": \"English\"\r\n    },\r\n    {\r\n        \"bookId\": \"2d2a0675-c5f3-4bb5-ae70-aa0d69dd6238\",\r\n        \"bookName\": \"To Kill a Mockingbird\",\r\n        \"bookAuthor\": \"Harper Lee\",\r\n        \"department\": \"English\"\r\n    },\r\n    {\r\n        \"bookId\": \"19f2075e-3aa8-4845-8f5b-764a85a773a8\",\r\n        \"bookName\": \"Pride and Prejudice\",\r\n        \"bookAuthor\": \"Jane Austen\",\r\n        \"department\": \"English\"\r\n    },\r\n    {\r\n        \"bookId\": \"0c4ad2a4-4c15-4e14-9827-1d6b8c7fb073\",\r\n        \"bookName\": \"The Hitchhiker's Guide to the Galaxy\",\r\n        \"bookAuthor\": \"Douglas Adams\",\r\n        \"department\": \"Science Fiction\"\r\n    },\r\n    {\r\n        \"bookId\": \"c1b6e26b-501a-4683-99c3-f9a5475f5c5d\",\r\n        \"bookName\": \"Dune\",\r\n        \"bookAuthor\": \"Frank Herbert\",\r\n        \"department\": \"Science Fiction\"\r\n    },\r\n    {\r\n        \"bookId\": \"da73ee47-88af-4a84-92bb-290f60e48e5c\",\r\n        \"bookName\": \"1984\",\r\n        \"bookAuthor\": \"George Orwell\",\r\n        \"department\": \"Science Fiction\"\r\n    },\r\n    {\r\n        \"bookId\": \"e6cbb347-2e3e-4f52-b039-6cb216e80f8c\",\r\n        \"bookName\": \"The Lord of the Rings\",\r\n        \"bookAuthor\": \"J.R.R. Tolkien\",\r\n        \"department\": \"Fantasy\"\r\n    },\r\n    {\r\n        \"bookId\": \"2e2a1ab3-8173-4c77-99f8-98d00c76b156\",\r\n        \"bookName\": \"Harry Potter and the Philosopher's Stone\",\r\n        \"bookAuthor\": \"J.K. Rowling\",\r\n        \"department\": \"Fantasy\"\r\n    },\r\n    {\r\n        \"bookId\": \"01b932df-1c10-49a1-aa5e-9635e5f5b5df\",\r\n        \"bookName\": \"The Name of the Wind\",\r\n        \"bookAuthor\": \"Patrick Rothfuss\",\r\n        \"department\": \"Fantasy\"\r\n    },\r\n    {\r\n        \"bookId\": \"f5c51e55-1613-4463-a999-dcf0c849605c\",\r\n        \"bookName\": \"The God of Small Things\",\r\n        \"bookAuthor\": \"Arundhati Roy\",\r\n        \"department\": \"Fiction\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/books/addBooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"addBooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterBooks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJZOVdYYTFiRzJnYU1zLU9xSTlra2h6elZxTXVaeDAwWHlLcFhBbFJvdk00In0.eyJleHAiOjE2NzkxNjMzMjYsImlhdCI6MTY3OTEyNzMyNiwianRpIjoiMzM1YTNmNGYtYjVmMC00MjMxLWJhMzktNThjMzEwYmFhMzA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9saWItbWFuYWdlbWVudCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmYzRhN2JkNC0yYjU0LTRiYjYtOGM1Ni1mOGVmZGFjMWMxNDYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODk4OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiU1RVREVOVCIsIkxJQlJBUklBTiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWxpYi1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiY2xpZW50SG9zdCI6IjEyNy4wLjAuMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlicmFyeS1tYW5hZ2VtZW50IiwiY2xpZW50QWRkcmVzcyI6IjEyNy4wLjAuMSJ9.JLF0MhGh1HMh-zNAokH4BopKelVsnzKlOH_T_8EvGHBdYnxKHi4JE3rRfA06kHptPsUeVQUH0FB8nNyJahI6hh12sXouoJXvU8Twv9uBA-l2vDHDZK08h1vaoKVH1eiGbvnS_k663dnVZAJWCKRe5tmrx-9SYt9wMzrP4eBCoGeC4Dt3soturLFmPmFmfiImoozgdM2KkRPfoHdNuSm5MZbFECzWfa_3Shbewij4sFxsTcU6sT_axsnm-CcqGqxJm0VXv0eu_eO5NuxwZ5agGLDMe19-JfPk7C1lQGkY0RDaLyJDyglyr6Mjs7uLuAX1-ekaLlo9yosv-z57lRQNxQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"filters\":[\r\n        {\r\n            \"field\":\"bookName\",\r\n            \"value\":\"The Great Gatsby\"\r\n        },\r\n        {\r\n            \"field\":\"status\",\r\n            \"value\":\"active\"\r\n        }\r\n    ],\r\n    \"sort\":{\r\n        \"field\":\"createdAt\",\r\n        \"order\":\"ASC\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/books/filterBooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"filterBooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterStudents",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJZOVdYYTFiRzJnYU1zLU9xSTlra2h6elZxTXVaeDAwWHlLcFhBbFJvdk00In0.eyJleHAiOjE2Nzk4NTY1OTMsImlhdCI6MTY3OTgyMDU5NCwianRpIjoiNzZmOGFmNTMtM2ViYS00NjA3LTk4YjktZjk1ZTg4ZGFhNDM0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9saWItbWFuYWdlbWVudCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmYzRhN2JkNC0yYjU0LTRiYjYtOGM1Ni1mOGVmZGFjMWMxNDYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODk4OSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiU1RVREVOVCIsIkxJQlJBUklBTiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWxpYi1tYW5hZ2VtZW50Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiY2xpZW50SG9zdCI6IjEyNy4wLjAuMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJsaWJyYXJ5LW1hbmFnZW1lbnQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbGlicmFyeS1tYW5hZ2VtZW50IiwiY2xpZW50QWRkcmVzcyI6IjEyNy4wLjAuMSJ9.Ven5k3rKi9y5hhBVRViD9snbmAxfinEnJNrPiamaod7b7_ktZw5pymKrcSDZhooS16yFJ6f5Tj_ye9oC2LrwzgJ_LMwrMKIbAGlgzt32Laj65_IlolyHtf8WX4v3XXciPqFCFFDZgoFuhYu_kib2jefErSI_Hh_Eww3OxT6qWoVx6985tT7WULk3kts9-Q0f2eEvd7gruWBSodm6HLdz-os1VeRMyayEMY5ZIBvash8oS2AEZ84EZMWxmnqvFXH8kSuh0hveea3eGVQtzRsbEoUnDrt_gnxxAYF86rmhzZjLxVEKRiRs3sG9Ym0vklxpbLsypwbTc01C_533-CUuUw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"filters\":[\r\n        {\r\n            \"field\":\"status\",\r\n            \"value\":\"Active\"\r\n        }\r\n    ],\r\n    \"sort\":{\r\n        \"field\":\"rollNo\",\r\n        \"order\":\"ASC\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/filterStudents?pageNo=0&pageSize=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"filterStudents"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InactiveStudent",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/inActiveStudent/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"inActiveStudent",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InactiveBook",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/books/inActiveBook/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"inActiveBook",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBook",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bookId\": \"c1b6e26b-501a-4683-99c3-f9a5475f5c6d\",\r\n    \"bookName\": \"Dune\",\r\n    \"bookAuthor\": \"Frank Herbert\",\r\n    \"department\": \"Science Fiction\",\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/books/updateBook/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"updateBook",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateStudent",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"id\": 4,\r\n        \"studentName\": \"Alice Williams\",\r\n        \"rollNo\": 43,\r\n        \"department\": \"Physics\",\r\n        \"status\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/updateStudent/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"updateStudent",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBook",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/books/deleteBook/33",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"deleteBook",
+						"33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteStudent",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/students/deleteStudent/33",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"deleteStudent",
+						"33"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
