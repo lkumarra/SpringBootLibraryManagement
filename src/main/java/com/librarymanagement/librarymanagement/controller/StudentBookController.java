@@ -3,7 +3,7 @@ package com.librarymanagement.librarymanagement.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
+//import javax.annotation.security.RolesAllowed;
 
 import com.librarymanagement.librarymanagement.dtos.IssuedBookModalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class StudentBookController {
 	StudentBookMappingService studentBookMappingService;
 
 	@PostMapping("/issueBook")
-	@RolesAllowed({"LIBRARIAN","STUDENT"})
+	//@RolesAllowed({"LIBRARIAN","STUDENT"})
 	public ResponseEntity<HashMap<String, Object>> issueBook(
 			@Validated @RequestBody StudentBookMapping studentBookMapping) {
 		return new ResponseEntity<HashMap<String, Object>>(studentBookMappingService.issueBook(studentBookMapping),
@@ -36,13 +36,13 @@ public class StudentBookController {
 	}
 
 	@GetMapping("/getIssuedBookDetails/{studentId}")
-	@RolesAllowed({"LIBRARIAN","STUDENT"})
+	//@RolesAllowed({"LIBRARIAN","STUDENT"})
 	public ResponseEntity<IssuedBookModalDTO> getAllBooksAssignedToStudent(@PathVariable long studentId) {
 		return ResponseEntity.ok(studentBookMappingService.getAllIssuedBookToStudent(studentId));
 	}
 
 	@PostMapping("/returnBook")
-	@RolesAllowed({"LIBRARIAN","STUDENT"})
+	//@RolesAllowed({"LIBRARIAN","STUDENT"})
 	public ResponseEntity<HashMap<String, Object>> returnBook(
 			@Validated @RequestBody StudentBookMapping studentBookMapping) {
 		return new ResponseEntity<HashMap<String, Object>>(studentBookMappingService.returnBook(studentBookMapping),
@@ -50,7 +50,7 @@ public class StudentBookController {
 	}
 
 	@GetMapping("/getAllIssuedBooks")
-	@RolesAllowed("LIBRARIAN")
+	//@RolesAllowed("LIBRARIAN")
 	public ResponseEntity<List<IssuedBookModalDTO>> getAllBooksIssuedToStudents() {
 		return ResponseEntity.ok(studentBookMappingService.getAllBooksIssuedToStudents());
 	}
