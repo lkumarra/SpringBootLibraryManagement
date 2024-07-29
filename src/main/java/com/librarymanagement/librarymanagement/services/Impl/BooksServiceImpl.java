@@ -1,10 +1,7 @@
 package com.librarymanagement.librarymanagement.services.Impl;
 
 import java.time.Instant;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.librarymanagement.librarymanagement.enums.BooksFieldsEnum;
@@ -118,22 +115,18 @@ public class BooksServiceImpl implements BooksService {
      */
     @Override
     public Books markBookAsInactive(long id) {
-        if (!booksRepository.existsById(id)) {
-            throw responseStatusUtility.notFoundStatusException(BooksErrorMessages.BOOK_NOT_EXISTS);
-        } else if (Objects.nonNull(studentBookMappingRepo.findByBookIdAndBookIssued(id, true)))
+        Books book = booksRepository.findById(id)
+                .orElseThrow(() -> responseStatusUtility.notFoundStatusException(BooksErrorMessages.BOOK_NOT_EXISTS));
+        if (Objects.nonNull(studentBookMappingRepo.findByBookIdAndBookIssued(id, true))) {
             throw responseStatusUtility.conflictStatusException(BooksErrorMessages.CAN_NOT_INACTIVE_BOOK);
-        else {
-            try {
-                Books book = booksRepository.findById(id).get();
-                long updatedAt = Instant.now().toEpochMilli();
-                book.setUpdatedAt(updatedAt);
-                book.setStatus(false);
-                return booksRepository.save(book);
-            } catch (Exception e) {
-                log.error("Error occurred while marking the book inactive with error message : {}", e.getMessage());
-                throw responseStatusUtility
-                        .internalServerErrorStatusException("Error occurred while marking the student as inactive");
-            }
+        }
+        try {
+            book.setUpdatedAt(Instant.now().toEpochMilli());
+            book.setStatus(false);
+            return booksRepository.save(book);
+        } catch (Exception e) {
+            log.error("Error occurred while marking the book inactive with error message : {}", e.getMessage());
+            throw responseStatusUtility.internalServerErrorStatusException("Error occurred while marking the student as inactive");
         }
     }
 
@@ -175,22 +168,25 @@ public class BooksServiceImpl implements BooksService {
      */
     @Override
     public List<Books> addBooks(List<Books> books) {
-        List<Books> booksList = Lists.newArrayList();
-        List<Books> booksListResponse = Lists.newArrayList();
-        List<String> booksId = Lists.newArrayList();
+        List<Books> booksList = new ArrayList<>();
+        List<Books> booksListResponse = new ArrayList<>();
+        Set<String> booksId = new HashSet<>();
+        List<Books> invalidBooks = new ArrayList<>();
         for (Books book : books) {
-            if (isBookDataValid(book))
-                booksList.add(book);
-            else
-                throw responseStatusUtility.badRequestStatusException(
-                        String.format(BooksErrorMessages.INVALID_BOOK_DATA, book.toString()));
+            if (isBookDataValid(book)) {
+                if (booksId.contains(book.getBookId())) {
+                    invalidBooks.add(book);
+                } else {
+                    booksId.add(book.getBookId());
+                    booksList.add(book);
+                }
+            } else {
+                invalidBooks.add(book);
+            }
         }
-        for (Books book : booksList) {
-            if (booksId.contains(book.getBookId()))
-                throw responseStatusUtility.conflictStatusException(
-                        String.format(BooksErrorMessages.DUPLICATE_BOOK_IDS, book.getBookId()));
-            else
-                booksId.add(book.getBookId());
+        if (!invalidBooks.isEmpty()) {
+            throw responseStatusUtility.badRequestStatusException(
+                    String.format(BooksErrorMessages.INVALID_BOOK_DATA, invalidBooks.toString()));
         }
         for (Books book : booksList) {
             try {
