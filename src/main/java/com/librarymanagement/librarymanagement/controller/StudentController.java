@@ -19,7 +19,7 @@ import com.librarymanagement.librarymanagement.services.StudentService;
 
 @Api(value = "student", description = "The students api", tags = {"students"})
 @Controller
-@RequestMapping("/api/v1/students")
+@RequestMapping("/api/v1")
 public class StudentController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class StudentController {
             @ApiResponse(code = 200, message = "return all students", response = Students.class, responseContainer = "List"),
             @ApiResponse(code = 500, message = "Error occurred while getting the students")
     })
-    @GetMapping(value = "/getAllStudents", produces = {"application/json"})
+    @GetMapping(value = "/students", produces = {"application/json"})
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<List<Students>> getAllStudents() {
         return new ResponseEntity<List<Students>>(studentService.getAllStudents(), HttpStatus.OK);
@@ -41,7 +41,7 @@ public class StudentController {
             @ApiResponse(code = 200, message = "return the student", response = Students.class),
             @ApiResponse(code = 404, message = "Not found")
     })
-    @GetMapping("/getStudent/{id}")
+    @GetMapping("/student/{id}")
     @RolesAllowed({"LIBRARIAN", "STUDENT"})
     public ResponseEntity<Students> getStudentsById(@PathVariable long id) {
         return ResponseEntity.ok(studentService.getStudentDetailsById(id));
@@ -53,7 +53,7 @@ public class StudentController {
             @ApiResponse(code = 400, message = "Invalid book name, department or author"),
             @ApiResponse(code = 500, message = "Error occurred while adding the student"),
             @ApiResponse(code = 409, message = "Duplicate Roll no")})
-    @PostMapping("/addStudent")
+    @PostMapping("/student")
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<Students> addStudent(@Validated @RequestBody Students students) {
         return new ResponseEntity<Students>(studentService.addStudent(students), HttpStatus.CREATED);
@@ -66,37 +66,37 @@ public class StudentController {
             @ApiResponse(code = 409, message = "Duplicate roll no"),
             @ApiResponse(code = 500, message = "Error occurred while saving the students")
     })
-    @PostMapping("/addStudents")
+    @PostMapping("/students")
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<List<Students>> addStudents(@Validated @RequestBody List<Students> students) {
         return ResponseEntity.ok(studentService.addStudents(students));
     }
 
-    @PutMapping("/updateStudent/{id}")
+    @PutMapping("/student/{id}")
     @RolesAllowed("STUDENT")
     public ResponseEntity<Students> updateStudents(@PathVariable long id, @Validated @RequestBody Students students) {
         return ResponseEntity.ok(studentService.updateStudentDetails(id, students));
     }
 
-    @PutMapping("/inActiveStudent/{id}")
+    @PutMapping("/inactive/student/{id}")
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<Map<String, String>> inactiveStudent(@PathVariable long id) {
         return ResponseEntity.ok(studentService.inactiveStudent(id));
     }
 
-    @DeleteMapping("/deleteStudent/{id}")
+    @DeleteMapping("/student/{id}")
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<Map<String, String>> deleteStudent(@PathVariable long id) {
         return ResponseEntity.ok(studentService.deleteStudent(id));
     }
 
-    @GetMapping("/searchStudent")
+    @GetMapping("/search/student")
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<List<Students>> searchStudents(@RequestParam String studentName) {
         return ResponseEntity.ok(studentService.searchStudents(studentName));
     }
 
-    @PostMapping("/filterStudents")
+    @PostMapping("/filter/students")
     @RolesAllowed("LIBRARIAN")
     public ResponseEntity<List<Students>> filterStudents(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "5") int pageSize, @RequestBody FilterStudentsModal filterStudentsModal) {
         return ResponseEntity.ok(studentService.filterStudents(pageNo, pageSize,filterStudentsModal));

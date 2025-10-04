@@ -24,35 +24,31 @@ import com.librarymanagement.librarymanagement.services.StudentBookMappingServic
 @RequestMapping("/api/v1/managebook")
 public class StudentBookController {
 
-	@Autowired
-	StudentBookMappingService studentBookMappingService;
+    @Autowired
+    StudentBookMappingService studentBookMappingService;
 
-	@PostMapping("/issueBook")
-	//@RolesAllowed({"LIBRARIAN","STUDENT"})
-	public ResponseEntity<HashMap<String, Object>> issueBook(
-			@Validated @RequestBody StudentBookMapping studentBookMapping) {
-		return new ResponseEntity<HashMap<String, Object>>(studentBookMappingService.issueBook(studentBookMapping),
-				HttpStatus.CREATED);
-	}
+    @PostMapping("/issue-book")
+    public ResponseEntity<HashMap<String, Object>> issueBook(
+            @Validated @RequestBody StudentBookMapping studentBookMapping) {
+        return new ResponseEntity<HashMap<String, Object>>(studentBookMappingService.issueBook(studentBookMapping),
+                HttpStatus.CREATED);
+    }
 
-	@GetMapping("/getIssuedBookDetails/{studentId}")
-	//@RolesAllowed({"LIBRARIAN","STUDENT"})
-	public ResponseEntity<IssuedBookModalDTO> getAllBooksAssignedToStudent(@PathVariable long studentId) {
-		return ResponseEntity.ok(studentBookMappingService.getAllIssuedBookToStudent(studentId));
-	}
+    @GetMapping("/books-details/{studentId}")
+    public ResponseEntity<IssuedBookModalDTO> getAllBooksAssignedToStudent(@PathVariable long studentId) {
+        return ResponseEntity.ok(studentBookMappingService.getAllIssuedBookToStudent(studentId));
+    }
 
-	@PostMapping("/returnBook")
-	//@RolesAllowed({"LIBRARIAN","STUDENT"})
-	public ResponseEntity<HashMap<String, Object>> returnBook(
-			@Validated @RequestBody StudentBookMapping studentBookMapping) {
-		return new ResponseEntity<HashMap<String, Object>>(studentBookMappingService.returnBook(studentBookMapping),
-				HttpStatus.OK);
-	}
+    @PostMapping("/return-book")
+    public ResponseEntity<HashMap<String, Object>> returnBook(
+            @Validated @RequestBody StudentBookMapping studentBookMapping) {
+        return new ResponseEntity<HashMap<String, Object>>(studentBookMappingService.returnBook(studentBookMapping),
+                HttpStatus.OK);
+    }
 
-	@GetMapping("/getAllIssuedBooks")
-	//@RolesAllowed("LIBRARIAN")
-	public ResponseEntity<List<IssuedBookModalDTO>> getAllBooksIssuedToStudents() {
-		return ResponseEntity.ok(studentBookMappingService.getAllBooksIssuedToStudents());
-	}
+    @GetMapping("/issued-books")
+    public ResponseEntity<List<IssuedBookModalDTO>> getAllBooksIssuedToStudents() {
+        return ResponseEntity.ok(studentBookMappingService.getAllBooksIssuedToStudents());
+    }
 
 }

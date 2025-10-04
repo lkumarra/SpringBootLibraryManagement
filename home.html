@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>GitHub Login</title></head>
+<body>
+<div th:if="${name}">
+    <h2>Welcome, <span th:text="${name}">User</span>!</h2>
+    <a href="/logout">Logout</a>
+</div>
+<div th:if="${name == null}">
+    <h2>Welcome, Guest!</h2>
+    <a href="/oauth2/authorization/github">Login with GitHub</a>
+</div>
+</body>
+</html>
